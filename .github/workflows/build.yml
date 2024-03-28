@@ -17,13 +17,6 @@ jobs:
         run: |
           zip -r adult_education_resources.zip .
         working-directory: ${{ github.workspace }}
-      
-      # - name: Push tag
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     tags: "v${{ github.run_number }}"
-      #   if: success()
 
       - name: Tag commit
         run: |
@@ -41,11 +34,23 @@ jobs:
           force: true
         if: success()
       
-      - name: Create release
+      # - name: Create release
+      #   uses: softprops/action-gh-release@v2
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   with:
+      #     files: "${{ github.workspace }}/adult_education_resources.zip"
+
+      - name: Create Release
+        id: create_release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: "${{ github.workspace }}/adult_education_resources.zip"
+          files: |
+            "${{ github.workspace }}/adult_education_resources.zip"
+          tag_name: "v${{ github.run_number }}"
+          release_name: "Release ${{ github.run_number }}"
+          prerelease: false
 
       # - name: Create release
       #   id: create_release
