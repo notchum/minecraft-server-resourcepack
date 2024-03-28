@@ -15,7 +15,7 @@ jobs:
 
       - name: Archive resource pack
         run: |
-          zip -r adult_education_resources.zip .
+          zip -r adult_education_resources.zip . -x "*.git*"
         working-directory: ${{ github.workspace }}
 
       - name: Tag commit
@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            "${{ github.workspace }}/adult_education_resources.zip"
+            adult_education_resources.zip
           tag_name: "v${{ github.run_number }}"
           release_name: "Release ${{ github.run_number }}"
           prerelease: false
