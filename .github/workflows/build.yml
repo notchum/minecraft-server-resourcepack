@@ -25,19 +25,24 @@ jobs:
       #     tags: "v${{ github.run_number }}"
       #   if: success()
 
-      - name: Bump tag
+      - name: Tag commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git tag -d $GITHUB_REF_NAME
           git tag $GITHUB_REF_NAME
-          git commit -a -m "Bump tag"
-      
+        env:
+          GITHUB_REF_NAME: "v${{ github.run_number }}"
+        working-directory: ${{ github.workspace }}
+        if: success()
+
       - name: Push tag
         uses: ad-m/github-push-action@master
         with:
-          force: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           tags: true
+          force: true
+        if: success()
       
       - name: Create release
         uses: softprops/action-gh-release@v2
