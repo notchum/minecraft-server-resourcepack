@@ -15,7 +15,6 @@ jobs:
 
       - name: Archive resource pack
         run: |
-          cd adult-education-resources
           zip -r adult_education_resources.zip .
         working-directory: ${{ github.workspace }}
 
