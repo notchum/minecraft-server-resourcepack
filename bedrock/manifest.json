@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "adult education resources",
+    "min_engine_version": [
+      1,
+      16,
+      20
+    ],
+    "name": "AdultEducationPack",
+    "uuid": "45721467-b42a-45a3-b89d-144b660cdd30",
+    "version": [
+      0,
+      0,
+      1
+    ]
+  },
+  "modules": [
+    {
+      "description": "adult education resources",
+      "type": "resources",
+      "uuid": "27e65fc8-e7d9-4ab7-9a2f-c8cf75d34afe",
+      "version": [
+        0,
+        0,
+        1
+      ]
+    }
+  ]
+}

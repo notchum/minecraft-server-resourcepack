@@ -29,9 +29,18 @@ jobs:
           force: true
         if: success()
 
-      - name: Archive resource pack
+      - name: Archive resource pack (Java Ed.)
         run: |
+          cd java
           zip -r rp_java_v${{ github.run_number }}.zip . -x "*.git*"
+          mv rp_java_v${{ github.run_number }}.zip ..
+        working-directory: ${{ github.workspace }}
+      
+      - name: Archive resource pack (Bedrock Ed.)
+        run: |
+          cd bedrock
+          zip -r rp_bedrock_v${{ github.run_number }}.mcpack . -x "*.git*"
+          mv rp_bedrock_v${{ github.run_number }}.mcpack ..
         working-directory: ${{ github.workspace }}
 
       - name: Create Release
@@ -42,5 +51,6 @@ jobs:
         with:
           files: |
             rp_java_v${{ github.run_number }}.zip
+            rp_bedrock_v${{ github.run_number }}.mcpack
           tag_name: "v${{ github.run_number }}"
           prerelease: false
