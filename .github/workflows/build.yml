@@ -31,13 +31,6 @@ jobs:
           force: true
         if: success()
 
-      # - name: Archive resource pack (Java Ed.)
-      #   run: |
-      #     cd java
-      #     zip -r rp_java_v${{ github.run_number }}.zip . -x "*.git*"
-      #     mv rp_java_v${{ github.run_number }}.zip ..
-      #   working-directory: ${{ github.workspace }}
-
       - name: Run PackSquash (Java Ed.)
         uses: ComunidadAylas/PackSquash-action@v4
         with:
