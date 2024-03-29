@@ -37,13 +37,6 @@ jobs:
       #     zip -r rp_java_v${{ github.run_number }}.zip . -x "*.git*"
       #     mv rp_java_v${{ github.run_number }}.zip ..
       #   working-directory: ${{ github.workspace }}
-      
-      # - name: Archive resource pack (Bedrock Ed.)
-      #   run: |
-      #     cd bedrock
-      #     zip -r rp_bedrock_v${{ github.run_number }}.mcpack . -x "*.git*"
-      #     mv rp_bedrock_v${{ github.run_number }}.mcpack ..
-      #   working-directory: ${{ github.workspace }}
 
       - name: Run PackSquash (Java Ed.)
         uses: ComunidadAylas/PackSquash-action@v4
@@ -53,13 +46,11 @@ jobs:
             pack_directory = "java"
             output_file_path = "/tmp/rp_java_v${{ github.run_number }}.zip"
 
-      - name: Run PackSquash (Bedrock Ed.)
-        uses: ComunidadAylas/PackSquash-action@v4
-        with:
-          packsquash_version: latest
-          options: |
-            pack_directory = "bedrock"
-            output_file_path = "/tmp/rp_bedrock_v${{ github.run_number }}.mcpack"
+      - name: Create MCPACK (Bedrock Ed.)
+        run: |
+          cd bedrock
+          zip -r /tmp/rp_bedrock_v${{ github.run_number }}.mcpack . -x "*.git*"
+        working-directory: ${{ github.workspace }}
 
       - name: Create Release
         id: create_release
